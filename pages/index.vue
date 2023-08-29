@@ -1,7 +1,11 @@
-<script setup>
-  const { $sayHello } = useNuxtApp()
-  console.log(useNuxtApp());
-  $sayHello(`Michel Migalov`);
+<script setup lang="ts">
+  // const { $sayHello } = useNuxtApp()
+  // console.log(useNuxtApp());
+  // $sayHello(`Michel Migalov`);
+  definePageMeta({
+    middleware: 'auth'
+  })
+
 </script>
 
 <template>
