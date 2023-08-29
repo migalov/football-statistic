@@ -10,8 +10,9 @@
 
 <template>
   <div>
-    <h1>Hi, man!</h1>
+    <!-- <h1>Hi, man!</h1>
     <img src="2.jpg" alt="" srcset="">
-    <IconsBell />
+    <IconsBell /> -->
+    <ContentDoc />
   </div>
 </template>
