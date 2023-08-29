@@ -1,5 +1,6 @@
 <template>
   <div>
-    Index param
+    <Alert />
+    <ProfileHeader />
   </div>
 </template>
