@@ -1,6 +1,7 @@
 <script setup>
-  const { sH } = useUtils();
-  sH();
+  const { $sayHello } = useNuxtApp()
+  console.log(useNuxtApp());
+  $sayHello(`Michel Migalov`);
 </script>
 
 <template>
