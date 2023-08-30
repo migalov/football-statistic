@@ -1,0 +1,10 @@
+[
+  {"id":2000,"name":"Afghanistan","countryCode":"AFG","flag":null,"parentAreaId":2014,"parentArea":"Asia"},
+  {"id":2001,"name":"Africa","countryCode":"AFR","flag":null,"parentAreaId":2267,"parentArea":"World"},
+  {"id":2002,"name":"Albania","countryCode":"ALB","flag":null,"parentAreaId":2077,"parentArea":"Europe"},
+  {"id":2004,"name":"Algeria","countryCode":"ALG","flag":null,"parentAreaId":2001,"parentArea":"Africa"},
+  {"id":2005,"name":"American Samoa","countryCode":"ASM","flag":null,"parentAreaId":2175,"parentArea":"Oceania"},
+  {"id":2006,"name":"Andorra","countryCode":"AND","flag":null,"parentAreaId":2077,"parentArea":"Europe"},
+  {"id":2007,"name":"Angola","countryCode":"ANG","flag":null,"parentAreaId":2001,"parentArea":"Africa"},
+  {"id":2008,"name":"Anguilla","countryCode":"AIA","flag":null,"parentAreaId":2159,"parentArea":"N/C America"}
+]

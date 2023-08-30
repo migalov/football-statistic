@@ -11,10 +11,14 @@
   // const store = useCounterStore();
   // console.log(store);
 
-    const response = await $fetch('/api/hello')
-    console.log(response);
-    
-  
+  // const response = await $fetch('/api/hello')
+  // console.log(response);
+
+    const { data: areas } = await useFetch("/api/areas", {
+      transform: (_areas) => _areas.data
+    });
+    console.log(toRaw(areas.value));
+
 </script>
 
 <template>
@@ -34,4 +38,7 @@
     </button>
   </div> -->
   <!-- <Counter id="counter" /> -->
+  <code>
+    {{ areas }}
+  </code>
 </template>
