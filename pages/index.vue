@@ -6,7 +6,12 @@
   //   middleware: 'auth'
   // })
   // const counter = useState('counter', () => Math.round(Math.random() * 1000))
-  const counter = useCounter();
+    // const counter = useCounter();
+  import { useCounterStore } from "~/stores/myStore"
+
+  const store = useCounterStore();
+  console.log(store);
+  
 </script>
 
 <template>
@@ -16,7 +21,7 @@
     <IconsBell />
     <ContentDoc />
   </div> -->
-  <div id="main">
+  <!-- <div id="main">
     Counter: {{ counter }}
     <button @click="counter++">
       +
@@ -24,6 +29,6 @@
     <button @click="counter--">
       -
     </button>
-  </div>
-  <Counter id="counter" />
+  </div> -->
+  <!-- <Counter id="counter" /> -->
 </template>
