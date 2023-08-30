@@ -6,11 +6,14 @@
   //   middleware: 'auth'
   // })
   // const counter = useState('counter', () => Math.round(Math.random() * 1000))
-    // const counter = useCounter();
-  import { useCounterStore } from "~/stores/myStore"
+  // const counter = useCounter();
+  // import { useCounterStore } from "~/stores/myStore"
+  // const store = useCounterStore();
+  // console.log(store);
 
-  const store = useCounterStore();
-  console.log(store);
+    const response = await $fetch('/api/hello')
+    console.log(response);
+    
   
 </script>
 
