@@ -1,5 +1,10 @@
+<script setup>
+  const { data: products } = await useFetch(`https://fakestoreapi.com/`)
+</script>
+
 <template>
-  <div>
-    <NuxtWelcome />
-  </div>
+  <NuxtLayout>
+    <header></header>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
