@@ -14,9 +14,7 @@
   // const response = await $fetch('/api/hello')
   // console.log(response);
 
-    const { data: areas } = await useFetch("/api/areas", {
-      transform: (_areas) => _areas.data
-    });
+    const { data: areas, pending } = await useLazyFetch("/api/areas");
     console.log(toRaw(areas.value));
 
 </script>
@@ -39,6 +37,6 @@
   </div> -->
   <!-- <Counter id="counter" /> -->
   <code>
-    {{ areas }}
+    {{ pending ? "Loading..." : areas }}
   </code>
 </template>
