@@ -6,6 +6,9 @@
 
 <template>
   <div>
+    <Head>
+      <Title>Competitions list</Title>
+    </Head>
     <code>{{ pending ? "Loading..." : competitions }}</code>
     <button @click="refresh">Refresh</button>
   </div>
