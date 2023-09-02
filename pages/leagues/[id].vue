@@ -15,10 +15,10 @@
       <UiTableRow v-for="s in standings">
         <UiTableCell>{{ s.standing_place }}</UiTableCell>
         <UiTableCell>
-          <div class="team-name">
+          <NuxtLink :to="`/teams/${s.team_key}`" class="team-name">
             <img height="15" :src="s.team_logo" alt="">
             <span>{{ s.standing_team }}</span>
-          </div>
+          </NuxtLink>
         </UiTableCell>
         <UiTableCell>{{ s.standing_W }}</UiTableCell>
         <UiTableCell>{{ s.standing_D }}</UiTableCell>
@@ -34,7 +34,7 @@
 
 <script setup>
   const { id } = useRoute().params;
-  const { data: standings, pending, error } = await useAsyncData( 'standings', () => $fetch(`https://apiv2.allsportsapi.com/football/?&met=Standings&leagueId=${id}&APIkey=9210ead2b2a6f70e3742c1b053f7d42af8549029070dd524b140ce4e1f247262`), {
+  const { data: standings, pending, error } = await useAsyncData( 'standings', () => $fetch(`${process.env.API_URL}?&met=Standings&leagueId=${id}&APIkey=${process.env.API_TOKEN}`), {
     transform: (data) => {
       return data.result["total"].map(league => league)}
       // return data.result.map(league => league)}

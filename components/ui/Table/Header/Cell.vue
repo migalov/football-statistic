@@ -6,8 +6,7 @@
 
 <style>
   .ui-table-header-cell { 
-    background-color: rgb(63, 146, 255);
-    font-weight: 300;
+    background-color: var(--color-primary);
     padding: 1rem;
     font-weight: 700;
   }

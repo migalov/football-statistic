@@ -6,7 +6,7 @@
 
 <style>
   .ui-table-row:nth-child(2n+2) {
-        background-color: #6cf3ff;
+    background-color: var(--color-second);
   }
   .ui-table-row:nth-child(2n+1) {
       background-color: #edf7f8;

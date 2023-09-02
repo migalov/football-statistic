@@ -2,10 +2,10 @@
   <li class="league-card">
     <a :href="`/leagues/${id}`"><h2 class="league-card__title">{{ name }}</h2></a>
     <div class="league-country">
-      <img width="30" class="league-country__flag" :src="country_flag">
+      <img v-if="country_flag" width="30" class="league-country__flag" :src="country_flag">
       <h3 class="league-country__title">{{ country }}</h3>
     </div>
-    <img class="league-card__logo" :src="logo">
+    <a :href="`/leagues/${id}`"><img v-if="logo" class="league-card__logo" :src="logo" :alt="`Logotype ${name}`"></a>
   </li>
 </template>
 

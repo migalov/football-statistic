@@ -2,7 +2,6 @@
   <header>
     <UiContainer class="header-wrap">
       <HeaderLogo />
-      <HeaderNavigation />
     </UiContainer>
 
   </header>
@@ -11,7 +10,7 @@
 <style lang="scss" scoped>
   .header-wrap {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 1rem 0;
   }
