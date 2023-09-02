@@ -10,6 +10,6 @@
     margin: 0 auto;
     padding-right: 1rem;
     padding-left: 1rem;
-    max-width: 1000px;
+    max-width: 1200px;
 }
 </style>

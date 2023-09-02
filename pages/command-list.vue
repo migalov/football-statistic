@@ -1,3 +1,0 @@
-<template>
-  <h1>Command List</h1>
-</template>
