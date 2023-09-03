@@ -1,63 +1,29 @@
-# Nuxt 3 Minimal Starter
+# Тестовое задание на позицию Frontend-developer
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-## Setup
+Для выполнения задания использовался сервис [All Sports API](https://allsportsapi.com/) ([документация](https://allsportsapi.com/soccer-football-socket-documentation))
 
-Make sure to install the dependencies:
 
-```bash
-# npm
-npm install
+|Оставшиеся задачи           |В процессе|Сделано|
+|----------------|-------------------------------|-|
+|Улушчить UI всех компонентов|Создать компонент фильтра|[Выведен список лиг](https://football-statistic.vercel.app/)|
+|||[Выведен список команд выбранной лиги - пример](https://football-statistic.vercel.app/leagues/308)|
+|||[Выведен список игроков выбранной команды - пример](https://football-statistic.vercel.app/teams/125)|
+|||Создана мини-карточка лиги|
+|||Создана мини-карточка игрока|
 
-# pnpm
-pnpm install
+## Установка на локальном серверве
+- Установить [NodeJS](https://nodejs.org/)
+- Склонировать репозиторий
+- Открыть командную строку и ввести:
 
-# yarn
-yarn install
+```sh
+cd football-statistic
+yarn
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
+## Разработка
+Запуск режима разработки:
+```sh
+yarn start
 ```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
