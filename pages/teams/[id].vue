@@ -61,8 +61,11 @@
 </style>
 
 <script setup>
+  const config = useRuntimeConfig(),
+        API_URL = config.public.apiBase,
+        API_TOKEN = config.apiSecret;
   const { id } = useRoute().params;
-  const { data: team } = await useAsyncData( 'team', () => $fetch(`${process.env.API_URL}?&met=Teams&teamId=${id}&APIkey=${process.env.API_TOKEN}?`), {
+  const { data: team } = await useAsyncData( 'team', () => $fetch(`${API_URL}?&met=Teams&teamId=${id}&APIkey=${API_TOKEN}`), {
     transform: (data) => {
       return data.result.map(team => ({
         id: team.team_key,

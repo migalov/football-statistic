@@ -39,7 +39,10 @@
 </style>
 
 <script setup>
-  const { data: leagues, pending, error } = await useAsyncData( 'leagues', () => $fetch(`${process.env.API_URL}?met=Leagues&APIkey=${API_TOKEN}`), {
+  const config = useRuntimeConfig(),
+        API_URL = config.public.apiBase,
+        API_TOKEN = config.apiSecret;
+  const { data: leagues, pending, error } = await useAsyncData( 'leagues', () => $fetch(`${API_URL}?met=Leagues&APIkey=${API_TOKEN}`), {
     transform: (data) => {
       return data.result.map(league => ({
         id: league.league_key,
@@ -49,6 +52,4 @@
         country_flag: league.country_logo
       }))}
   });
-  console.log(process.env);
-  console.log(process.env.API_URL);
 </script>

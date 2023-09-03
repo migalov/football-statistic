@@ -36,9 +36,6 @@
     align-items: center;
     gap: 1rem;
   }
-  /* .league-country__flag {
-    width: 15px;
-  } */
 
   .league-card__title {
     font-size: 1.3rem;

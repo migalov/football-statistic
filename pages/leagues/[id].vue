@@ -12,7 +12,8 @@
         <UiTableHeaderCell>GD</UiTableHeaderCell>
         <UiTableHeaderCell>Pts</UiTableHeaderCell>
       </UiTableHeader>
-      <UiTableRow v-for="s in standings">
+      
+      <UiTableRow v-for="s in standings" v-if="standings.length > 0">
         <UiTableCell>{{ s.standing_place }}</UiTableCell>
         <UiTableCell>
           <NuxtLink :to="`/teams/${s.team_key}`" class="team-name">
@@ -33,11 +34,13 @@
 </template>
 
 <script setup>
+  const config = useRuntimeConfig(),
+        API_URL = config.public.apiBase,
+        API_TOKEN = config.apiSecret;
   const { id } = useRoute().params;
-  const { data: standings, pending, error } = await useAsyncData( 'standings', () => $fetch(`${process.env.API_URL}?&met=Standings&leagueId=${id}&APIkey=${process.env.API_TOKEN}`), {
+  const { data: standings, pending, error } = await useAsyncData( 'standings', () => $fetch(`${API_URL}?&met=Standings&leagueId=${id}&APIkey=${API_TOKEN}`), {
     transform: (data) => {
       return data.result["total"].map(league => league)}
-      // return data.result.map(league => league)}
   });
 </script>
 
