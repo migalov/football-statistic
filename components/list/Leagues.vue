@@ -1,22 +1,21 @@
 <template>
-  <h2>Current page: {{ currentPage }}</h2>
-    <h2>Total pages: {{ totalPages }}</h2>
-
-    <!-- <code>
-      {{filteredLeagues}}
-    </code> -->
-    <UiPagination
-       @change="refetch"
-       :totalPages="totalPages"
-       :currentPage="currentPage"
-    />
+  <!-- <h2>Current page: {{ currentPage }}</h2>
+    <h2>Total pages: {{ totalPages }}</h2> -->
     <Selectdropdownsearch
       :options="countries"
       v-model="selectedCountry"
     />
+    <!-- <h3>Get filtered pages: {{getTotalPages}}</h3> -->
+    <UiPagination
+      v-if="!pending"
+       @change="refetch"
+       :totalPages="getTotalPages"
+       :currentPage="currentPage"
+    />
+    
   <UiPreloader v-if="pending" />
-  <UiError v-if="filteredLeagues.length == 0">No data found for your filter</UiError>
-  <UiError v-if="error">Error loading</UiError>
+  <UiError v-if="filteredLeagues.length == 0 && !pending">No data found for your filter</UiError>
+  <UiError v-if="error && !pending">Error loading</UiError>
   <ul v-if="!pending" class="grid">
     <LeagueCard
       v-for="league in filteredLeagues"
@@ -51,7 +50,7 @@
           return league
         }
         else {
-          return league.country == selectedCountry.value
+          return league.country === selectedCountry.value
         }
       })
     },
@@ -61,15 +60,29 @@
   const totalPages = ref(Math.ceil(leagues.value.length / step.value));
 
   const refetch = pageNumber => {
-    currentPage.value = pageNumber
+    currentPage.value = pageNumber;
   }
 
   const filteredLeagues = computed(() =>
       leagues.value
         .filter(league => (league.number >= 1 + ((currentPage.value - 1) * step.value)) && (league.number <= (currentPage.value * step.value))));
 
+  const getTotalPages = computed(() => {
+
+    currentPage.value = 1;
+
+    if (!selectedCountry.value) {
+      return totalPages.value;
+    }
+
+    else {
+      return Math.ceil(filteredLeagues.value.length / step.value)
+    }
+
+  })
+
   // Получаем список стран-участников
-  const { data: countries } = await useFetch('https://apiv2.allsportsapi.com/football/?met=Leagues&APIkey=9210ead2b2a6f70e3742c1b053f7d42af8549029070dd524b140ce4e1f247262', {
+  const { data: countries } = await useFetch('https://apiv2.allsportsapi.com/football/?met=Countries&APIkey=9210ead2b2a6f70e3742c1b053f7d42af8549029070dd524b140ce4e1f247262', {
     transform: (data) => {
       return data.result.map(item => ({
         icon: item.country_logo,

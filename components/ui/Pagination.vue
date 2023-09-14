@@ -27,6 +27,7 @@
     flex-wrap: wrap;
     align-items: center;
     gap: .5em;
+    padding: 1rem 0;
   }
   .pagination__btn {
     display: flex;

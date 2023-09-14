@@ -7,7 +7,7 @@
         class="options-wrapper"
         v-if="isDropDownVisible"
       >
-        <input class="dropdown-search" type="text" v-model="search" @input="foo" :placeholder="searchPlaceholder" />
+        <input class="dropdown-search" type="text" v-model="search" @input="changeInput" :placeholder="searchPlaceholder" />
         <div
           class="option"
           v-for="(option, index) in filteredData"
@@ -43,7 +43,7 @@
 
   const search = ref(null);
 
-  const foo = (e) => {
+  const changeInput = (e) => {
     console.log(e.target.value);
     if (search) {
       filteredData.value = props.options.filter(item => {
@@ -79,6 +79,7 @@
       selectedOption.value = "";
       emit("update:modelValue", "");
     }
+    isDropDownVisible.value = false;
   }
 
   const closeDropDown = element => {
