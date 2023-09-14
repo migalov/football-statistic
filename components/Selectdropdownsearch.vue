@@ -1,22 +1,23 @@
 <template>
   <div class="dropdown-wrapper" ref="dropDown">
     <div class="dropdown-selected-option" @click="isDropDownVisible = !isDropDownVisible">{{ mappedSelectedOption }}</div>
+    <div class="dropdown-clear" @click="clearValue">❌</div>
     <transition name="slide-fade">
-    <div
-      class="options-wrapper"
-      v-if="isDropDownVisible"
-    >
-      <input class="dropdown-search" type="text" v-model="search" @input="foo" :placeholder="searchPlaceholder" />
       <div
-        class="option"
-        v-for="(option, index) in filteredData"
-        :key="index"
-        @click="toggleOptionSelect"
+        class="options-wrapper"
+        v-if="isDropDownVisible"
       >
-        <img class="option-icon" v-if="option.icon" :src="option.icon" :alt="option.title">
-        <span :class="option.icon && `option-title`">{{ option.title || option }}</span>
+        <input class="dropdown-search" type="text" v-model="search" @input="foo" :placeholder="searchPlaceholder" />
+        <div
+          class="option"
+          v-for="(option, index) in filteredData"
+          :key="index"
+          @click="toggleOptionSelect"
+        >
+          <img class="option-icon" v-if="option.icon" :src="option.icon" :alt="option.title">
+          <span :class="option.icon && `option-title`">{{ option.title || option }}</span>
+        </div>
       </div>
-    </div>
     </transition>
   </div>
 </template>
@@ -73,6 +74,13 @@
 
   }
 
+  const clearValue = () => {
+    if(selectedOption) {
+      selectedOption.value = "";
+      emit("update:modelValue", "");
+    }
+  }
+
   const closeDropDown = element => {
     if(!dropDown.value.contains(element.target)) {
       isDropDownVisible.value = false;
@@ -117,6 +125,13 @@
     width: inherit;
     border-radius: 8px;
     border: 1px solid #e6e6e6;
+  }
+
+  .dropdown-clear {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .options-wrapper {
