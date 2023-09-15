@@ -5,7 +5,7 @@
   <UiContainer>
     <h1>Teams List</h1>
     <UiPreloader v-if="pending" />
-    <UiError v-if="standings.length == 0 && !pending">
+    <UiError v-if="!standings">
       <p>No data available</p>
     </UiError>
     <UiError v-if="error && !pending">Error loading</UiError>
