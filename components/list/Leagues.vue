@@ -28,13 +28,13 @@
 </template>
 
 <script setup>
+  const config = useRuntimeConfig(),
+      API_URL = config.public.apiBase,
+      API_TOKEN = config.public.apiSecret;
+
   const currentPage = ref(1); // Текущая страница
   const step = ref(20); // Кол-во элементов в страниц
   const selectedCountry = ref(null); // Выбираем страну
-
-  const config = useRuntimeConfig(),
-      API_URL = config.public.apiBase,
-      API_TOKEN = config.apiSecret;
 
   // Получаем список футбольных лиг
   const { data: leagues, pending, error } = await useFetch(`${API_URL}?met=Leagues&APIkey=${API_TOKEN}`, {
