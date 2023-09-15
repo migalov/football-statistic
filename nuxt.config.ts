@@ -1,6 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { resolve } from "path";
 export default defineNuxtConfig({
+  runtimeConfig: {
+    apiSecret: process.env.NUXT_API_SECRET,
+    public: {
+      apiBase: process.env.NUXT_PUBLIC_API_BASE,
+    }
+  },
   modules: [
     ['@nuxtjs/google-fonts', {
         families: {
