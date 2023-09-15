@@ -1,6 +1,6 @@
 <template>
     <Head>
-      <Title>{{team[0].name}} - Standings</Title>
+      <Title>{{team[0].name}} - Team</Title>
     </Head>
   <UiContainer>
       <section class="team">
@@ -38,7 +38,7 @@
   const { id } = useRoute().params;
   const config = useRuntimeConfig(),
       API_URL = config.public.apiBase,
-      API_TOKEN = config.apiSecret;
+      API_TOKEN = config.public.apiSecret;
   const { data: team } = await useFetch(`${API_URL}?&met=Teams&teamId=${id}&APIkey=${API_TOKEN}`, {
     transform: (data) => {
       return data.result.map(team => ({
@@ -54,4 +54,4 @@
       tmp.push(element.player_name);
     });
   })
-</script>  const { data: team } = await useAsyncData( 'team', () => $fetch(`${API_URL}?&met=Teams&teamId=${id}&APIkey=${API_TOKEN}`), {
+</script>
