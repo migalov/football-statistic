@@ -1,6 +1,6 @@
 <template>
   <div class="error">
-    😕
+    <div class="error_emoji">😕</div> 
     <span class="error__title"><slot /></span>
   </div>
   
@@ -13,6 +13,9 @@
     justify-content: center;
     gap: 1.5rem;
     padding: 2rem 0;
+  }
+  .error_emoji {
+    font-size: 2rem;
   }
   .error__title {
     font-size: 2rem;

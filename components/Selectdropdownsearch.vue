@@ -7,7 +7,7 @@
         class="options-wrapper"
         v-if="isDropDownVisible"
       >
-        <input class="dropdown-search" type="text" v-model="search" @input="changeInput" :placeholder="searchPlaceholder" />
+        <input class="dropdown-search" type="text" v-model="search" @input="changeInput" />
         <div
           class="option"
           v-for="(option, index) in filteredData"
@@ -31,9 +31,9 @@
     modelValue: {
       default: null
     },
-    searchPlaceholder: {
+    placeholder: {
       type: String,
-      default: "Find item"
+      default: "Please select something"
     }
   })
 
@@ -62,7 +62,7 @@
   const isDropDownVisible = ref(false);
 
   const mappedSelectedOption = computed(() => {
-    return (selectedOption.value?.title || selectedOption.value) || 'Please select something'
+    return (selectedOption.value?.title || selectedOption.value) || props.placeholder
   })
 
   const toggleOptionSelect = option => {

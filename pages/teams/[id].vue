@@ -1,23 +1,23 @@
 <template>
+    <Head>
+      <Title>{{team[0].name}} - Standings</Title>
+    </Head>
   <UiContainer>
-      <div>
-        <div>
+      <section class="team">
+        <div class="team__header">
           <img :src="team[0].logo" />
           <h1>{{ team[0].name }}</h1>
         </div>
         <div>
-          <h2>Players</h2>
           <ul class="grid-players">
-            <PlayerCard v-for="player in team[0].players" :player="player" />
+            <PlayerCard v-for="(player, index) in team[0].players" :key="index" :player="player" />
           </ul>
         </div>
-      </div>
-      <code>
-      </code>
+      </section>
   </UiContainer>
 </template>
 
-<style>
+<style lang="scss" scoped>
   .grid-players {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
@@ -28,15 +28,18 @@
     @media (width > 992px) {
       grid-template-columns: repeat(3, 1fr);
     }
-    @media (width > 1200px) {
-      grid-template-columns: repeat(4, 1fr);
-    }
+  }
+  .team__header {
+    text-align: center;
   }
 </style>
 
 <script setup>
   const { id } = useRoute().params;
-  const { data: team } = await useAsyncData( 'team', () => $fetch(`https://apiv2.allsportsapi.com/football/?&met=Teams&teamId=${id}&APIkey=9210ead2b2a6f70e3742c1b053f7d42af8549029070dd524b140ce4e1f247262`), {
+  const config = useRuntimeConfig(),
+      API_URL = config.public.apiBase,
+      API_TOKEN = config.apiSecret;
+  const { data: team } = await useFetch(`${API_URL}?&met=Teams&teamId=${id}&APIkey=${API_TOKEN}`, {
     transform: (data) => {
       return data.result.map(team => ({
         id: team.team_key,
@@ -45,4 +48,10 @@
         players: team.players
       }))}
   });
-</script>
+  const playersList = computed(() => {
+    let tmp = [];
+    team[0].players.forEach(element => {
+      tmp.push(element.player_name);
+    });
+  })
+</script>  const { data: team } = await useAsyncData( 'team', () => $fetch(`${API_URL}?&met=Teams&teamId=${id}&APIkey=${API_TOKEN}`), {

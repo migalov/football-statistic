@@ -1,25 +1,35 @@
 <template>
+  <Head>
+    <Title>Teams List</Title>
+  </Head>
   <UiContainer>
     <h1>Teams List</h1>
+    <UiPreloader v-if="pending" />
+    <UiError v-if="standings.length == 0 && !pending">
+      <p>No data available</p>
+    </UiError>
+    <UiError v-if="error && !pending">Error loading</UiError>
     <table>
       <UiTableHeader>
-          <UiTableHeaderCell @click="sortList('standing_place')">Pos. ↕</UiTableHeaderCell>
-          <UiTableHeaderCell @click="sortList('standing_team')" width="15%">Team ↕</UiTableHeaderCell>
-          <UiTableHeaderCell @click="sortList('standing_W')">W ↕</UiTableHeaderCell>
-          <UiTableHeaderCell @click="sortList('standing_D')">D ↕</UiTableHeaderCell>
-          <UiTableHeaderCell @click="sortList('standing_L')">L ↕</UiTableHeaderCell>
-          <UiTableHeaderCell @click="sortList('standing_W')">D ↕</UiTableHeaderCell>
-          <UiTableHeaderCell @click="sortList('standing_A')">A ↕</UiTableHeaderCell>
-          <UiTableHeaderCell @click="sortList('standing_GD')">GD ↕</UiTableHeaderCell>
-          <UiTableHeaderCell @click="sortList('standing_PTS')">Pts. ↕</UiTableHeaderCell>
+          <UiTableHeaderCell @click="sortList('position')">Pos. ↕</UiTableHeaderCell>
+          <UiTableHeaderCell @click="sortList('title')" width="15%">Team ↕</UiTableHeaderCell>
+          <UiTableHeaderCell @click="sortList('W')">W ↕</UiTableHeaderCell>
+          <UiTableHeaderCell @click="sortList('D')">D ↕</UiTableHeaderCell>
+          <UiTableHeaderCell @click="sortList('L')">L ↕</UiTableHeaderCell>
+          <UiTableHeaderCell @click="sortList('W')">D ↕</UiTableHeaderCell>
+          <UiTableHeaderCell @click="sortList('A')">A ↕</UiTableHeaderCell>
+          <UiTableHeaderCell @click="sortList('GD')">GD ↕</UiTableHeaderCell>
+          <UiTableHeaderCell @click="sortList('PTS')">Pts. ↕</UiTableHeaderCell>
       </UiTableHeader>
       <UiTableBody>
-        <UiTableRow v-for="(team, index) in standings" :key="index">
+        <UiTableRow v-for="team in standings" :key="team.key">
           <UiTableCell :data-label="`Position`">{{ team?.position }}</UiTableCell>
           <UiTableCell :data-label="`Team`">
             <div class="team-name">
-              <img height="25" :src="team?.logo" :alt="`Team - ${team?.title}`">
-              <span>{{ team?.title }}</span>
+              <NuxtLink :to="`/teams/${team.key}`" class="team-name">
+                <img height="25" :src="team?.logo" :alt="`Team - ${team?.title}`">
+                <span>{{ team?.title }}</span>
+              </NuxtLink>
             </div>
           </UiTableCell>
           <UiTableCell :data-label="`W`">{{ team?.W }}</UiTableCell>
@@ -37,9 +47,13 @@
 
 <script setup>
   const { id } = useRoute().params;
-  const { data: standings, pending, error } = await useFetch(`https://apiv2.allsportsapi.com/football/?&met=Standings&leagueId=${id}&APIkey=9210ead2b2a6f70e3742c1b053f7d42af8549029070dd524b140ce4e1f247262`, {
+  const config = useRuntimeConfig(),
+      API_URL = config.public.apiBase,
+      API_TOKEN = config.apiSecret;
+  const { data: standings, pending, error } = await useFetch(`${API_URL}?&met=Standings&leagueId=${id}&APIkey=${API_TOKEN}`, {
     transform: (data) => {
       return data.result["total"].map(team => ({
+        key: team.team_key,
         position: team.standing_place,
         title: team.standing_team,
         logo: team.team_logo,
@@ -58,7 +72,6 @@
     if (sortedbyASC.value) {
       sortedTeams.value.sort((x, y) => (x[sortBy] > y[sortBy] ? -1 : 1));
       sortedbyASC.value = false;
-      console.log(e.target);
     } else {
       sortedTeams.value.sort((x, y) => (x[sortBy] < y[sortBy] ? -1 : 1));
       sortedbyASC.value = true;
@@ -67,8 +80,7 @@
   
 
 </script>
-
-<style>
+<style scoped>
   .team-name {
     display: flex;
     align-items: center;

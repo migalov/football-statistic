@@ -1,11 +1,9 @@
 <template>
-  <!-- <h2>Current page: {{ currentPage }}</h2>
-    <h2>Total pages: {{ totalPages }}</h2> -->
     <Selectdropdownsearch
       :options="countries"
       v-model="selectedCountry"
+      :placeholder="`Select country`"
     />
-    <!-- <h3>Get filtered pages: {{getTotalPages}}</h3> -->
     <UiPagination
       v-if="!pending"
        @change="refetch"
@@ -34,8 +32,12 @@
   const step = ref(20); // Кол-во элементов в страниц
   const selectedCountry = ref(null); // Выбираем страну
 
+  const config = useRuntimeConfig(),
+      API_URL = config.public.apiBase,
+      API_TOKEN = config.apiSecret;
+
   // Получаем список футбольных лиг
-  const { data: leagues, pending, error } = await useFetch(`https://apiv2.allsportsapi.com/football/?met=Leagues&APIkey=9210ead2b2a6f70e3742c1b053f7d42af8549029070dd524b140ce4e1f247262`, {
+  const { data: leagues, pending, error } = await useFetch(`${API_URL}?met=Leagues&APIkey=${API_TOKEN}`, {
     transform: (data) => {
       let i = 0;
       return data.result.map(league => ({
@@ -82,7 +84,7 @@
   })
 
   // Получаем список стран-участников
-  const { data: countries } = await useFetch('https://apiv2.allsportsapi.com/football/?met=Countries&APIkey=9210ead2b2a6f70e3742c1b053f7d42af8549029070dd524b140ce4e1f247262', {
+  const { data: countries } = await useFetch(`${API_URL}?met=Leagues&APIkey=${API_TOKEN}`, {
     transform: (data) => {
       return data.result.map(item => ({
         icon: item.country_logo,
