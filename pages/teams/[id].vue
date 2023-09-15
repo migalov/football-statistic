@@ -3,14 +3,15 @@
       <Title>{{team[0].name}} - Team</Title>
     </Head>
   <UiContainer>
-      <section class="team">
+      <UiPreloader v-if="pending" />
+      <section v-if="!pending" class="team">
         <div class="team__header">
           <img :src="team[0].logo" />
           <h1>{{ team[0].name }}</h1>
         </div>
         <div>
           <ul class="grid-players">
-            <PlayerCard v-for="(player, index) in team[0].players" :key="index" :player="player" />
+            <PlayerCard v-for="(player, index) in team[0]?.players" :key="index" :player="player" />
           </ul>
         </div>
       </section>
@@ -39,7 +40,7 @@
   const config = useRuntimeConfig(),
       API_URL = config.public.apiBase,
       API_TOKEN = config.public.apiSecret;
-  const { data: team } = await useFetch(`${API_URL}?&met=Teams&teamId=${id}&APIkey=${API_TOKEN}`, {
+  const { data: team, pending, error } = await useAsyncData('team', () => $fetch(`${API_URL}?&met=Teams&teamId=${id}&APIkey=${API_TOKEN}`), {
     transform: (data) => {
       return data.result.map(team => ({
         id: team.team_key,
@@ -48,10 +49,4 @@
         players: team.players
       }))}
   });
-  const playersList = computed(() => {
-    let tmp = [];
-    team[0].players.forEach(element => {
-      tmp.push(element.player_name);
-    });
-  })
 </script>

@@ -8,7 +8,7 @@
     <UiError v-if="!standings">
       <p>No data available</p>
     </UiError>
-    <UiError v-if="error && !pending">Error loading</UiError>
+    <UiError v-if="error">Error loading</UiError>
     <table v-if="!pending">
       <UiTableHeader>
           <UiTableHeaderCell @click="sortList('position')">Pos. ↕</UiTableHeaderCell>
