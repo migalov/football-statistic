@@ -28,13 +28,6 @@
   defineProps({
     player: Object
   })
-
-    // const handleImageError = e => {
-    //   console.log(e.type);
-    //   if(e.type === "error") {
-    //     e.target.src = '/unknown-user.webp';
-    //   }
-    // };
 </script>
 
 <style lang="scss" scoped>

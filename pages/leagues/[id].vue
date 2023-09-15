@@ -5,10 +5,7 @@
   <UiContainer>
     <h1>Teams List</h1>
     <UiPreloader v-if="pending" />
-    <UiError v-if="standings.length <= 0">
-      <p>No data available</p>
-    </UiError>
-    <UiError v-if="error">Error loading</UiError>
+    <UiError v-if="!standings?.length">No data available.</UiError>
     <table v-if="!pending">
       <UiTableHeader>
           <UiTableHeaderCell @click="sortList('position')">Pos. ↕</UiTableHeaderCell>
@@ -22,7 +19,7 @@
           <UiTableHeaderCell @click="sortList('PTS')">Pts. ↕</UiTableHeaderCell>
       </UiTableHeader>
       <UiTableBody>
-        <UiTableRow v-for="team in standings" :key="team.key">
+        <UiTableRow v-for="(team, index) in standings" :key="index">
           <UiTableCell :data-label="`Position`">{{ team?.position }}</UiTableCell>
           <UiTableCell :data-label="`Team`">
             <div class="team-name">
@@ -50,7 +47,7 @@
   const config = useRuntimeConfig(),
       API_URL = config.public.apiBase,
       API_TOKEN = config.apiSecret;
-  const { data: standings, pending, error } = await useFetch(`${API_URL}?&met=Standings&leagueId=${id}&APIkey=${API_TOKEN}`, {
+  const { data: standings, pending, error } = await useAsyncData('standings', () => $fetch(`${API_URL}?&met=Standings&leagueId=${id}&APIkey=${API_TOKEN}`), {
     transform: (data) => {
       return data.result["total"].map(team => ({
         key: team.team_key,

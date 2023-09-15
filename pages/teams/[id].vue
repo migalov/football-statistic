@@ -35,7 +35,7 @@
   }
 </style>
 
-<script setup>
+<script setup> 
   const { id } = useRoute().params;
   const config = useRuntimeConfig(),
       API_URL = config.public.apiBase,
